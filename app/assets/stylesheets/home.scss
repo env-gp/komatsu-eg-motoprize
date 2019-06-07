@@ -1,0 +1,122 @@
+.trim-image-to-circle {
+  width:  105px;       /* ※縦横を同値に */
+  height: 105px;       /* ※縦横を同値に */
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  background-position: left top;
+  display: inline-block;
+}
+
+.shared-review-list .user-avatar {
+  margin-right: 15px;
+}
+
+.shared-review-list .vehicle-name {
+  font-size: 25px;
+}
+
+.user-avatar {
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-review-list {
+  padding: 12px;
+  border-width: 1px;
+  border-style: inset;
+  border-radius: 5px;
+  display: flex;
+}
+
+.search-form {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group-search {
+  width: 600px;
+  float: left;
+}
+
+.btn-search {
+  margin-left: 10px;
+}
+
+.home-shared-review-list {
+  font-size: 20px;
+  margin-top: 8px;
+  background-color:#FFFFFF;
+}
+
+.shared-review-list {
+  background-color:#FFFFFF;
+  }
+
+.shared-review-list:hover {
+  background-color: #eff;
+  }
+
+.home-shared-review-list a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.home-shared-review-list a:hover {
+  color: rgb(85, 85, 235);
+  text-decoration: underline;
+  text-decoration-color: rgb(85, 85, 235);
+}
+
+.item-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-title-body {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.item-list .user-name {
+  margin-top: 0;
+  font-size: 23px;
+}
+
+.item-list .vehicle-name {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px dotted;
+}
+
+.title-body {
+  display: flex;
+  flex-direction: column;
+  position:relative;
+}
+
+.title-body .title {
+  margin-bottom: 8px;
+}
+
+.title-body .link-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+.likes-button {
+  margin-top: 10px; 
+}
+
+.paginate-reviews {
+  margin-top: 10px;
+}
+
+.paginate-reviews-info {
+  margin-bottom: 10px
+}

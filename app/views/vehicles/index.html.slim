@@ -1,0 +1,21 @@
+h1 車両一覧
+
+- if current_user.admin?
+  = link_to '新規登録', new_vehicle_path, class: 'btn btn-primary'
+
+.mb-3
+table.table.table-hover
+  thead.thead-default
+    tr
+      th= Vehicle.human_attribute_name(:name)
+      th= Maker.human_attribute_name(:name)
+      th
+  tbody
+    - @vehicles.each do |vehicle|
+      tr
+        td= link_to vehicle.name, vehicle
+        td= vehicle.maker.name
+        td
+          - if current_user.admin?
+            = link_to '編集', edit_vehicle_path(vehicle), class: 'btn btn-primary mr-3'
+            = link_to '削除', vehicle, method: :delete, remote: true, data: { confirm: "「#{vehicle.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger delete'

@@ -1,0 +1,29 @@
+@import "bootstrap";
+@import "toastr";
+
+@import "./users";
+@import "./reviews";
+@import "./makers";
+@import "./vehicles";
+@import "./likes";
+@import "./footer";
+@import "./home";
+
+body {
+  background-color: #F5F5F5;
+}
+
+h1 {
+  margin: 10px;
+}
+
+.current-user-name {
+  margin-left: 400px;
+}
+
+.wrapper{
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 120px;
+  box-sizing: border-box;
+}

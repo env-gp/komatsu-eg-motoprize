@@ -1,0 +1,16 @@
+.app-title.navbar.navbar-expand-md.navbar-dark.bg-primary.sticky-top
+  = link_to 'Motoprize', root_path, class: 'navbar-brand'
+  .ul.navbar-nav.mr-auto
+    - if current_user
+      li.nav-item= link_to 'ホーム', root_path, class: 'nav-link'
+      li.nav-item= link_to 'マイページ', user_path(current_user), class: 'nav-link'
+      li.nav-item= link_to '新規投稿', makers_path, class: 'nav-link'
+      - if current_user.admin?
+        li.nav-item= link_to 'ユーザ一覧', users_path, class: 'nav-link'
+      li.nav-item= link_to '車両一覧', vehicles_path, class: 'nav-link'
+      li.nav-item= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link'
+    - else
+      li.nav-item= link_to '新規登録', new_user_path, class: 'nav-link'
+      li.nav-item= link_to 'ログイン', login_path, class: 'nav-link'
+    - if current_user
+      = link_to current_user.name.truncate(12) + "さん", user_path(current_user), class: 'navbar-brand current-user-name'

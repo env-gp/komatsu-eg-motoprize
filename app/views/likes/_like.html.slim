@@ -1,0 +1,12 @@
+- unless review.like_user(current_user.id).blank?
+  = link_to review_like_path(review_id: review.id ,id: review.likes[0].id), method: :delete, remote: true do
+    .vertical_like
+      span.referenced 投票済み
+      span.red-text
+        = review.likes_count
+- else
+  = link_to review_likes_path(review.id), method: :post, remote: true do
+    .vertical_like
+      span.reference 参考になった
+      span.grey-text.text-darken-2
+        = review.likes_count

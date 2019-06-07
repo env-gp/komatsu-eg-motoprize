@@ -1,0 +1,30 @@
+- if reviews.present?
+  .home-shared-review-list
+    - reviews.each do |review|
+      .shared-review-list
+        .item.user-avatar
+          = link_to user_path(review.user) do
+            = user_image(review.user, 'trim-image-to-circle')
+
+            .likes-button
+              div id="likes_buttons_#{review.id}"
+                = render partial: 'likes/like', locals: { review: review, likes: @likes }
+        .item.item-list
+          .item.user-name
+            = link_to review.user.name.truncate(20), user_path(review.user), class: 'review-user-name'
+            = "・" + I18n.l(review.created_at, format: :short)
+          .item.vehicle-title-body
+            .item.vehicle-name
+              = link_to "【#{review.vehicle.name}】", vehicle_path(review.vehicle.id)
+              = link_to review.title, review_path(review), class: 'title'
+            .item.title-body
+              = link_to "", review_path(review), class: 'link-body'
+              = review.body.truncate(105)
+
+  .paginate-reviews
+    .paginate-reviews-info
+      = page_entries_info reviews
+    = paginate reviews
+
+- else
+  p レビュー投稿はありません。

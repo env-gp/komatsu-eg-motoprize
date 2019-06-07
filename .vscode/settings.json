@@ -1,0 +1,6 @@
+{
+    "solargraph.definitions": true,
+    "solargraph.diagnostics": true,
+    "solargraph.formatting": true,
+    "workbench.iconTheme": "vscode-icons"
+}

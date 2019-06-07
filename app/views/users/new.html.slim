@@ -1,0 +1,26 @@
+h1 ユーザ登録
+
+.nav.justify-content-end
+  - if current_user
+    = link_to '一覧', users_path, class: 'nav-link'
+
+=render partial: 'form', locals: { user: @user}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

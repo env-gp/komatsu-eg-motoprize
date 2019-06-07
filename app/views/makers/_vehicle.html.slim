@@ -1,0 +1,15 @@
+h2 車種
+= form_with model: @vehicles, url: new_review_path, local: true, method: :get do |f|
+  .vehicles-group
+    - @vehicles.each_with_index do |vehicle, i|
+      .vehicle
+        - if i == 0
+          = radio_button_tag :vehicle_id, vehicle.id, true, id: vehicle.name, class: 'form-check-input'
+        - else
+          = radio_button_tag :vehicle_id, vehicle.id, false, id: vehicle.name, class: 'form-check-input'
+
+        .vehicles-image
+          = vehicle_image(vehicle, 'form-vehicles-image')
+
+          p = vehicle.name
+  = f.submit 'レビューを書く', class: 'btn btn-primary'

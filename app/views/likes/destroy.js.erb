@@ -1,0 +1,7 @@
+if (document.getElementById('likes_button')) {
+  document.getElementById('likes_button').innerHTML = "<%= escape_javascript(render partial: 'likes/like', locals: {review: @review}) %>";
+}
+
+if (document.getElementById("<%= "likes_buttons_#{@review.id}" %>")) {
+  document.getElementById("<%= "likes_buttons_#{@review.id}" %>").innerHTML = "<%= escape_javascript(render partial: 'likes/like', locals: {review: @review}) %>";
+}

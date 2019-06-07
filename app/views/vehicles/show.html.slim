@@ -1,0 +1,37 @@
+h1 車両詳細
+
+.nav.justify-content-end
+  = link_to '一覧', vehicles_path, class: 'nav-link'
+
+= link_to 'レビューを書く', new_review_path(vehicle_id: @vehicle.id), class: 'btn btn-primary write-review'
+
+table.table.table-hover
+  tbody
+    - if current_user.admin?
+      tr
+        th= Vehicle.human_attribute_name(:id)
+        td= @vehicle.id
+    tr
+      th= Vehicle.human_attribute_name(:name)
+      td= @vehicle.name
+    tr
+      th= Maker.human_attribute_name(:name)
+      td= @maker.name
+    tr
+      th= Review.human_attribute_name(:image)
+      td= vehicle_image(@vehicle, 'form-vehicle-image')
+
+- if current_user.admin?
+  = link_to '編集', edit_vehicle_path, class: 'btn btn-primary mr-3'
+  = link_to '削除', @vehicle, method: :delete, data: { confirm: "「#{@vehicle.name}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
+
+p.reviews-heading レビュー一覧
+= render partial: 'shared/reviews/reviewlist', locals: { reviews: @reviews }
+
+p.review-movies-heading =Vehicle.human_attribute_name(:movie)
+- if @vehicle.movie.nil?
+  p =Vehicle.human_attribute_name(:movie) + 'はありません。'
+- else
+  - @vehicle.movie_split.each do |movie|
+    .review-movie
+      = movie(movie_id: movie)

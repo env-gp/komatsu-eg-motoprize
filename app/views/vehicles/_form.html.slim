@@ -1,0 +1,27 @@
+- if vehicle.errors.present?
+  ul#error_explanation
+     - vehicle.errors.full_messages.each do |message|
+       li= message
+
+= form_with model: @vehicle, local: true, multipart: true do |f|
+  .form-group
+    = f.label Maker.human_attribute_name(:name)
+    .makers-check
+      - @makers.each do |maker|
+        .form-check-inline
+          - if maker.id == 1
+            f.= radio_button_tag :maker_id, maker.id, true, id: maker.name, class: 'form-check-input'
+          - else
+            f.= radio_button_tag :maker_id, maker.id, false, id: maker.name, class: 'form-check-input'
+          = f.label :maker_name, maker.name, for: maker.name, class: 'form-check-label'
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :image, 'イメージ'
+    = file_field :fileupload, :file, accept: 'image/jpg', class: 'form-control'
+  .form-group
+    = f.label :movie
+    = f.label "（VIDEO_IDをカンマ区切りで指定）"
+    = f.text_field :movie, class: 'form-control'
+  = f.submit '登録する', class: 'btn btn-primary'

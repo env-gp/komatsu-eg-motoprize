@@ -1,0 +1,19 @@
+.page-header
+  h1 車種選択
+
+h2 メーカー
+.makers-form
+  = form_with model: @makers, url: makers_ve_path, method: :get, id: 'makers' do |f|
+    .makers-check
+      - @makers.each_with_index do |maker|
+        .form-check-inline
+          - if maker.id == 1
+            f.= radio_button_tag 'maker_id', maker.id, true, id: maker.name, class: 'form-check-input'
+          - else
+            f.= radio_button_tag 'maker_id', maker.id, false, id: maker.name, class: 'form-check-input'
+          = label_tag :name, maker.name, for: maker.name, class: 'form-check-label'
+    br
+    = f.submit '検索', remote: true, class: 'btn btn-primary'
+
+.vehicles-form
+  #vehicles-form

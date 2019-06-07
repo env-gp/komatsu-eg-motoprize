@@ -1,0 +1,58 @@
+.myhome-top {
+  margin-top: 10px;
+}
+
+// .avatar-to-circle {
+// }
+
+.like-avatar-to-circle {
+  width:  60px;
+  height: 60px;
+  border-radius: 50%;
+  background-position: left top;
+  display: inline-block;
+  margin-right: 7px;
+}
+
+.sub-menu {
+  list-style: none;
+  padding: 10px 0 0 0;
+  border-top: 2px #0bd solid;
+}
+
+.sub-menu li {
+  border-bottom: 1px #ddd solid;
+}
+
+.sub-menu a {
+  color: #432;
+  display: block;
+  font-size: 1.0rem;
+}
+
+.user-name {
+  margin: 10px 0 0;
+  font-size: 1.5rem;
+}
+
+.notification {
+  margin-top: 10px;
+}
+
+.likes-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  border: 1px #ddd solid;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.likes-list .like {
+  padding: 7px 5px;
+  border-bottom: 1px #ddd solid;
+}
+
+.paginate-like-info {
+  margin: 5px 0;
+}

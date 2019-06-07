@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title
+      | Motoprize
+    = csrf_meta_tags
+    = csp_meta_tag
+    = favicon_link_tag('bike.png')
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  body
+    header
+      = render 'layouts/navigation'
+    .wrapper
+      .container
+        / RSpecにてtoastrのテストは難しいためtest環境は通常のflashを使用する
+        - if Rails.env.test?
+          - if flash.notice.present?
+            .alert.alert-success= flash.notice
+        - else
+          - flash.each do |type, msg|
+            - type = 'info' if type == 'notice'
+            - type = 'error' if type == 'alert'
+            javascript:
+              toastr["#{type}"]("#{msg}");
+
+        = yield
+      footer
+        = render 'layouts/footer'

@@ -1,0 +1,36 @@
+h1 レビュー一覧
+
+.search_form
+  = search_form_for @q do |f|
+    .form-group.row
+      = f.label :title_or_vehicle_name_cont, "題名、車種", class: 'col-sm-2 col-form-label'
+      .col-sm-10
+        = f.search_field :title_or_vehicle_name_cont, class: 'form-control'
+        = hidden_field_tag :user_id, @user.id
+    .form-group
+      = f.submit class: 'btn btn-outline-primary'
+
+.mb-3
+  = paginate @reviews
+  = page_entries_info @reviews
+
+table.table.table-hover.table-sm
+  thead.theaddefault
+    = content_tag "tr", class: "table-primary"
+      th= sort_link(@q, :title, default_order: :desc)
+      th= Vehicle.human_attribute_name(:name)
+      th= Review.human_attribute_name(:likes_count)
+      th= sort_link(@q, :created_at, default_order: :desc)
+      th
+  tbody
+    - @reviews.each do |review|
+      tr
+        td= link_to review.title.truncate(16), review
+        td= link_to review.vehicle.name, review.vehicle
+        td= review.likes_count
+        td= review.created_at.to_s(:db)
+        td
+          - if correct_user(review.user_id)
+            = link_to '編集', edit_review_path(review), class: 'btn btn-link mr-3'
+            = link_to '削除', review, method: :delete, remote: true, data: { confirm: "タスク 「#{review.title}」を削除します。よろしいですか？"}, class: 'btn btn-link delete'
+    

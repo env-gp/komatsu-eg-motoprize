@@ -1,0 +1,9 @@
+h1 レビュー
+
+.nav.justify-content-end
+  - if @path[:controller] == "vehicles"
+    = link_to '戻る', vehicle_path(@vehicle.id), class: 'nav-link'
+  - else
+    = link_to '車種選択へ戻る', makers_path, class: 'nav-link'
+
+= render partial: 'form', locals: { review: @review, vehicle: @vehicle }

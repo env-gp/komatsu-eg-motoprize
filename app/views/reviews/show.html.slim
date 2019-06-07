@@ -1,0 +1,44 @@
+h1 レビューの詳細
+
+.nav.justify-content-end
+  - if @path[:controller] == "home"
+    = link_to '戻る', root_path, class: 'nav-link'
+  - elsif @path[:controller] == "vehicles"
+    = link_to '戻る', vehicle_path(@review.vehicle.id), class: 'nav-link'
+  - else
+    = link_to '一覧', "/reviews/#{@review.user.id}/index", class: 'nav-link'
+
+.likes_button
+  #likes_button
+    = render partial: 'likes/like', locals: { review: @review, likes: @likes }
+
+.review-show
+  table.table.table-hover
+    tbody
+      tr
+        th= User.human_attribute_name(:name)
+        td= link_to @review.user.name.truncate(20), user_path(@review.user)
+      tr
+        th= Vehicle.human_attribute_name(:name)
+        td= link_to @vehicle.name.truncate(20), vehicle_path(@vehicle.id)
+      tr
+        th= Review.human_attribute_name(:title)
+        td= @review.title
+      tr
+        th= Review.human_attribute_name(:body)
+        td= simple_format(h(@review.body))
+      t
+        th= Review.human_attribute_name(:image)
+        td= image_tag @review.thumbnail if @review.image.attached?
+      tr
+        th= Review.human_attribute_name(:created_at)
+        td= @review.created_at.to_s(:db)
+      tr
+        th= Review.human_attribute_name(:updated_at)
+        td= @review.updated_at.to_s(:db)
+
+- if correct_user(@review.user_id)
+  tr
+   th 
+     = link_to '編集', edit_review_path, class: 'btn btn-primary mr-3'
+     = link_to '削除', @review, method: :delete, data: { confirm: "タスク 「#{@review.title}」を削除します。よろしいですか？"}, class: 'btn btn-danger'
