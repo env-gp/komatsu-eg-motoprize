@@ -1,24 +1,10 @@
-# README
+# 概要
+バイクのレビュー投稿アプリです。以下の機能を備えています。
+・レビューを投稿する。
+・レビューに「参考になった」を投票する。
+・レビューを一覧表示する。
+・レビュー検索する。
+・おすすめレビュー動画表示
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 本番URL
+https://motoprize-prd.herokuapp.com
