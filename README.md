@@ -21,7 +21,7 @@ File Uploading : Active Storage
 Webサーバーを起動する前に、db/seeds.rbで初期データを設定します。
 
 ## テストスイートの実行方法
-モジュールテスト、リクエストテストとシステムテストにはminitestとcapybaraを使用しています。
+モジュールテスト、リクエストテストとシステムテストにはRSpecとcapybaraを使うことができます。
 
 # 本番URL
 https://motoprize-prd.herokuapp.com
