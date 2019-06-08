@@ -19,15 +19,15 @@ class Review < ApplicationRecord
   validate :validate_body_not_including_comma
   validate :validate_duplicate_review, on: :create
 
-  scope :created_at_desc , -> (page) { order("created_at DESC").page(page).per(HOME_PAGINATION_MAX) }
+  scope :order_create_desc , -> (page) { order("created_at DESC, id DESC").page(page).per(HOME_PAGINATION_MAX) }
   scope :review_includes , -> { Review.includes(:user, :vehicle) }
 
   def self.search(page, search: "", vehicle_id: nil)
     if search.length == 0
       if vehicle_id.nil?
-        review_includes.created_at_desc(page)
+        review_includes.order_create_desc(page)
       else
-        review_includes.where(vehicle_id: vehicle_id).created_at_desc(page)
+        review_includes.where(vehicle_id: vehicle_id).order_create_desc(page)
       end
     else
       # 検索文字列を空白で区切ってtitle, bodyそれぞれで検索する
@@ -37,7 +37,7 @@ class Review < ApplicationRecord
       # gem 'activerecord-like'の機能を使用
       review_includes.where.like(title: search_words)
       .or(review_includes.where.like(body: search_words))
-      .created_at_desc(page)
+      .order_create_desc(page)
     end
   end
 
