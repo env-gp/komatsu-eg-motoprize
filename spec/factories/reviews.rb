@@ -2,6 +2,12 @@ FactoryBot.define do
   factory :review do
     title { Faker::Base.regexify("[aあ]{#{ Review::TITLE_MAX_LENGTH }") }
     body { Faker::Base.regexify("[aあ]{#{ Review::BODY_MAX_LENGTH }}") }
+    touring { true }
+    race { true }
+    shopping { false }
+    commute { true }
+    work { false }
+    etcetera { true }
     association :vehicle
     association :user
   end
@@ -9,6 +15,12 @@ FactoryBot.define do
   factory :review_2, parent: :review do
     title { Faker::Base.regexify("[aあ]{#{ Review::TITLE_MAX_LENGTH }") }
     body { Faker::Base.regexify("[aあ]{#{ Review::BODY_MAX_LENGTH }}") }
+    touring { false }
+    race { false }
+    shopping { false }
+    commute { false }
+    work { false }
+    etcetera { true }
     association :vehicle
     association :user
   end
@@ -16,6 +28,12 @@ FactoryBot.define do
   factory :review_3, parent: :review do
     title { Faker::Base.regexify("[aあ]{#{ Review::TITLE_MAX_LENGTH }") }
     body { Faker::Base.regexify("[aあ]{#{ Review::BODY_MAX_LENGTH }}") }
+    touring { false }
+    race { false }
+    shopping { false }
+    commute { false }
+    work { false }
+    etcetera { false }
     association :vehicle, factory: :vehicle_second
     association :user
   end

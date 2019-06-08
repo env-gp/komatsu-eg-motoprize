@@ -19,8 +19,15 @@ ja:
         name: 名称
         image: 画像
         likes_count: 参考になった
+        touring: ツーリング
+        race: レース
+        shopping: 買い物
+        commute: 通勤
+        work: 仕事用
+        etcetera: その他
         created_at: 登録日時
         updated_at: 更新日時
+        use: 使用目的
       user:
         name: 名前
         email: メールアドレス

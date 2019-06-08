@@ -22,6 +22,8 @@ class ReviewsController < ApplicationController
   end
 
   def edit
+    # 遷移元のcontroller,actionを取得
+    @path = Rails.application.routes.recognize_path(request.referer)
   end
 
   def update
@@ -32,6 +34,7 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to "/reviews/#{@current_user.id}/index", notice: "レビュー「#{@review.title}」を更新しました。"
     else
+      @path = Rails.application.routes.recognize_path(request.referer)
       render :edit
     end
   end
@@ -72,7 +75,7 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:title, :body, :image)
+    params.require(:review).permit(:title, :body, :image, :touring, :race, :shopping, :commute, :work, :etcetera)
   end
 
   def correct_user_check

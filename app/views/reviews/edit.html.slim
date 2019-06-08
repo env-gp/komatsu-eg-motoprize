@@ -1,6 +1,9 @@
 h1 レビュー編集
 
 .nav.justify-content-end
- = link_to '一覧', root_path, class: 'nav-link'
+  - if @path[:action] == "index"
+    = link_to '戻る', "/reviews/#{@review.user.id}/index", class: 'nav-link'
+  - elsif @path[:action] == "show"
+    = link_to '戻る', review_path(@review), class: 'nav-link'
 
 = render partial: 'form', locals: { review: @review, vehicle: @vehicle }

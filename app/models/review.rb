@@ -44,6 +44,36 @@ class Review < ApplicationRecord
   def like_user(user_id)
     likes.find_by(user_id: user_id)
   end
+
+  def use
+    use = []
+    separator = "・"
+    if self.touring?
+      use << Review.human_attribute_name(:touring)
+    end
+
+    if self.race?
+      use << Review.human_attribute_name(:race)
+    end
+
+    if self.shopping?
+      use << Review.human_attribute_name(:shopping)
+    end
+
+    if self.commute?
+      use << Review.human_attribute_name(:commute)
+    end
+
+    if self.work?
+      use << Review.human_attribute_name(:work)
+    end
+    
+    if self.etcetera?
+      use << Review.human_attribute_name(:etcetera)
+    end
+
+    use.join(separator).to_s
+  end
   
   # 車種選択画面でのレビュー重複チェック用
   def self.duplicate_review(user_id, vehicle_id)

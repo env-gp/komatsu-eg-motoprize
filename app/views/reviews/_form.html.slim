@@ -7,6 +7,23 @@
 
 = form_with model: review, local: true do |f|
   .form-group
+    .checkbox-inline
+      = f.label :use, class: 'use-title'
+      .use-purpose
+        = f.check_box :touring
+        = f.label :touring
+        = f.check_box :race
+        = f.label :race
+        = f.check_box :shopping
+        = f.label :shopping
+        = f.check_box :commute
+        = f.label :commute
+        = f.check_box :work
+        = f.label :work
+        = f.check_box :etcetera
+        = f.label :etcetera
+    
+  .form-group
     = f.label :title, class: 'control-label'
     = f.text_field :title, class: 'form-control form-control-sm', id: 'review_title'
     p.help-block ※#{ Review::TITLE_MAX_LENGTH }文字以内

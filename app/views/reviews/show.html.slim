@@ -22,6 +22,9 @@ h1 レビューの詳細
         th= Vehicle.human_attribute_name(:name)
         td= link_to @vehicle.name.truncate(20), vehicle_path(@vehicle.id)
       tr
+        th= Review.human_attribute_name(:use)
+        td= @review.use
+      tr
         th= Review.human_attribute_name(:title)
         td= @review.title
       tr

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Review, type: :model do
 
   context "必須チェック" do
-    it "題名とレビューコメントがあれば有効な状態であること" do
+    it "題名とレビューコメント、使用目的があれば有効な状態であること" do
       review = FactoryBot.build(:review)
       review.valid?
       expect(review).to be_valid

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_034620) do
+ActiveRecord::Schema.define(version: 2019_06_08_022455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,12 @@ ActiveRecord::Schema.define(version: 2019_06_05_034620) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.integer "likes_count"
+    t.boolean "touring"
+    t.boolean "race"
+    t.boolean "shopping"
+    t.boolean "commute"
+    t.boolean "work"
+    t.boolean "etcetera"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["vehicle_id"], name: "index_reviews_on_vehicle_id"
   end
