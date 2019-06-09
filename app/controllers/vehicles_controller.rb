@@ -77,7 +77,12 @@ class VehiclesController < ApplicationController
     if params[:fileupload] && fileupload_param[:file]
       uploaded_file = fileupload_param[:file]
       image_name = "#{@vehicle.id}.jpg"
-      File.binwrite("app/assets/images/vehicles/#{image_name}", uploaded_file.read)
+      begin
+        File.binwrite("app/assets/images/vehicles/#{image_name}", uploaded_file.read)
+      rescue => e
+        puts "画像ファイルの書き込みに失敗しました : " + e.message
+        raise
+      end
     end
   end
 

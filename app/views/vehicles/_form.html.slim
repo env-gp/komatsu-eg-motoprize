@@ -10,9 +10,9 @@
       - @makers.each do |maker|
         .form-check-inline
           - if maker.id == 1
-            f.= radio_button_tag :maker_id, maker.id, true, id: maker.name, class: 'form-check-input'
+            = f.radio_button :maker_id, maker.id, :checked => true, class: 'form-check-input', id: maker.name
           - else
-            f.= radio_button_tag :maker_id, maker.id, false, id: maker.name, class: 'form-check-input'
+            = f.radio_button :maker_id, maker.id, :checked => false, class: 'form-check-input', id: maker.name
           = f.label :maker_name, maker.name, for: maker.name, class: 'form-check-label'
   .form-group
     = f.label :name
