@@ -88,4 +88,12 @@ RSpec.describe Review, type: :model do
       expect(Review.search(0, vehicle_id: @review3.vehicle_id)).to_not include(@review1, @review2)
     end
   end
+
+  
+  context "#use" do
+    it "useが適切な文字列を返すこと" do
+      review = FactoryBot.build(:review)
+      expect(review.use).to include('ツーリング・レース・通勤・その他')
+    end
+  end
 end
