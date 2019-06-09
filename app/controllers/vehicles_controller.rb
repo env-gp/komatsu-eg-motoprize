@@ -87,7 +87,11 @@ class VehiclesController < ApplicationController
       begin
         File.binwrite("app/assets/images/vehicles/#{image_name}", uploaded_file.read)
       rescue => e
+<<<<<<< HEAD
         puts "画像ファイルの保存に失敗しました : " + e.message
+=======
+        puts "画像ファイルの書き込みに失敗しました : " + e.message
+>>>>>>> 1ebc76f571ac5cf295110b46c8b2e8498605259d
         raise
       end
     end
