@@ -97,3 +97,13 @@ RSpec.describe Review, type: :model do
     end
   end
 end
+
+context "関連ＤＢが削除されること" do
+  it "reviewを削除すると、like(参考になった)も削除されること" do
+    user = FactoryBot.create(:user)
+    review = FactoryBot.create(:review, user: user)
+    Like.create(user_id: user.id, review_id: review.id)
+
+    expect{ review.destroy }.to change{ Like.count }.by(-1)
+  end
+end

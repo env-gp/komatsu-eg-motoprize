@@ -49,4 +49,14 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include("は不正な値です")
     end
   end
+
+  context "関連ＤＢが削除されること" do
+    it "userを削除すると、userが書いたreview, like(参考になった)も削除されること" do
+      user = FactoryBot.create(:user)
+      review = FactoryBot.create(:review, user: user)
+      Like.create(user_id: user.id, review_id: review.id)
+
+      expect{ user.destroy }.to change{ Review.count }.by(-1).and change{ Like.count }.by(-1)
+    end
+  end
 end
