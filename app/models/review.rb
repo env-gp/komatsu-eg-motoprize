@@ -46,33 +46,24 @@ class Review < ApplicationRecord
   end
 
   def use
-    use = []
+    use_array = []
     separator = "・"
-    if self.touring?
-      use << Review.human_attribute_name(:touring)
+    uses = {
+      touring: self.touring,
+      race: self.race,
+      shopping: self.shopping,
+      commute: self.commute,
+      work: self.work,
+      etcetera: self.etcetera,
+    }
+
+    uses.each do |key, value|
+      if value.present?
+        use_array << Review.human_attribute_name(key)
+      end
     end
 
-    if self.race?
-      use << Review.human_attribute_name(:race)
-    end
-
-    if self.shopping?
-      use << Review.human_attribute_name(:shopping)
-    end
-
-    if self.commute?
-      use << Review.human_attribute_name(:commute)
-    end
-
-    if self.work?
-      use << Review.human_attribute_name(:work)
-    end
-    
-    if self.etcetera?
-      use << Review.human_attribute_name(:etcetera)
-    end
-
-    use.join(separator).to_s
+    use_array.join(separator).to_s
   end
   
   # 車種選択画面でのレビュー重複チェック用
