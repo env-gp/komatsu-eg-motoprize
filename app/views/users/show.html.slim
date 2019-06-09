@@ -6,7 +6,7 @@
       ul.sub-menu
         - if correct_user(@user.id)
           li= link_to 'プロフィール設定', edit_user_path(current_user)
-        li= link_to '投稿一覧', "/reviews/#{@user.id}/index"
+        li= link_to '投稿一覧', reviews_path(user_id: @user.id)
   .col-md-9
 .row
   .col-md-10

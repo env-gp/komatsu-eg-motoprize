@@ -8,15 +8,16 @@ Rails.application.routes.draw do
   resources :reviews do
     resources :likes, only: [:create, :destroy]
   end
-  
+
   resources :users
   resources :reviews, expect: [:index]
   resources :vehicles
 
-  get 'likes/create'
-  get 'likes/destroy'
-
   get '/reviews/:user_id/index', to: 'reviews#index'
+
+  get '/likes/create'
+  get '/likes/destroy'
+
   get '/search', to: 'home#search'
 
   get '/makers', to: 'makers#index'
