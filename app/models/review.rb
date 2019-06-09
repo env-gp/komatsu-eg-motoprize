@@ -6,6 +6,15 @@ class Review < ApplicationRecord
   REVIEWLIST_PAGINATION_MAX = 5
   DUPLICATE_REVIEW_ERR_MESSAGE = "すでに同一車種でレビューが投稿されています。投稿日:"
 
+  USES = [
+    :touring,
+    :race,
+    :shopping,
+    :commute,
+    :work,
+    :etcetera,
+  ]
+
   has_one_attached :image
 
   has_many :likes, dependent: :destroy

@@ -10,18 +10,9 @@
     .checkbox-inline
       = f.label :use, class: 'use-title'
       .use-purpose
-        = f.check_box :touring
-        = f.label :touring
-        = f.check_box :race
-        = f.label :race
-        = f.check_box :shopping
-        = f.label :shopping
-        = f.check_box :commute
-        = f.label :commute
-        = f.check_box :work
-        = f.label :work
-        = f.check_box :etcetera
-        = f.label :etcetera
+        - Review::USES.each do |n|
+          = f.check_box n
+          = f.label n
     
   .form-group
     = f.label :title, class: 'control-label'
