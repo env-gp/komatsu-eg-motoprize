@@ -53,6 +53,13 @@ class VehiclesController < ApplicationController
   def destroy
     # 既に投稿されていた場合、削除できない
     if @vehicle.destroy
+      image_name = "#{@vehicle.id}.jpg"
+      begin
+        FileUtils.rm("app/assets/images/vehicles/#{image_name}")
+      rescue => e
+        puts "画像ファイルの削除に失敗しました : " + e.message
+        raise
+      end
       redirect_to vehicles_url, notice: "「#{@vehicle.name}」を削除しました。"
     else
       redirect_to vehicles_url, alert: "「#{@vehicle.name}」を削除できませんでした。既に投稿されています。"
@@ -77,7 +84,12 @@ class VehiclesController < ApplicationController
     if params[:fileupload] && fileupload_param[:file]
       uploaded_file = fileupload_param[:file]
       image_name = "#{@vehicle.id}.jpg"
-      File.binwrite("app/assets/images/vehicles/#{image_name}", uploaded_file.read)
+      begin
+        File.binwrite("app/assets/images/vehicles/#{image_name}", uploaded_file.read)
+      rescue => e
+        puts "画像ファイルの保存に失敗しました : " + e.message
+        raise
+      end
     end
   end
 

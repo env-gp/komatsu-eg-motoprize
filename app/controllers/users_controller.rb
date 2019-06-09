@@ -55,6 +55,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
+
+    @user.avatar.purge if @user.avatar.attached?
     @user.destroy
     redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました。"
   end

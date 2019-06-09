@@ -52,6 +52,7 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
+    @review.image.purge if @review.image.attached?
     @review.destroy
     unless request.xhr?
       redirect_to "/reviews/#{@current_user.id}/index", notice: "レビュー「#{@review.title}」を削除しました。"
