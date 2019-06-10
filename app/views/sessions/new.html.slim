@@ -11,3 +11,10 @@ h1 ログイン
     = f.label :password, 'パスワード'
     = f.password_field :password, class: 'form-control', id: 'session_password', value: @password
   = f.submit 'ログインする', class: 'btn btn-primary'
+
+- if current_user.blank? && Rails.env.production?
+  .home-notice
+    p レビュー投稿及び「参考になった」機能を使用するにはログインが必要です。
+    p 【テスト用ログインユーザー】
+    p メールアドレス：taro@ex.com
+    p パスワード：pass
