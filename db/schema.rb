@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_08_105724) do
+ActiveRecord::Schema.define(version: 2019_06_09_234959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2019_06_08_105724) do
   end
 
   create_table "makers", force: :cascade do |t|
-    t.string "name"
-    t.string "order"
+    t.string "name", null: false
+    t.string "order", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,13 +59,13 @@ ActiveRecord::Schema.define(version: 2019_06_08_105724) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.integer "likes_count"
-    t.boolean "touring"
-    t.boolean "race"
-    t.boolean "shopping"
-    t.boolean "commute"
-    t.boolean "work"
-    t.boolean "etcetera"
+    t.integer "likes_count", default: 0, null: false
+    t.boolean "touring", default: false, null: false
+    t.boolean "race", default: false, null: false
+    t.boolean "shopping", default: false, null: false
+    t.boolean "commute", default: false, null: false
+    t.boolean "work", default: false, null: false
+    t.boolean "etcetera", default: false, null: false
     t.index ["created_at", "id"], name: "index_reviews_on_created_at_and_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["vehicle_id"], name: "index_reviews_on_vehicle_id"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2019_06_08_105724) do
     t.integer "maker_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "movie"
+    t.string "movie", null: false
     t.index ["maker_id"], name: "index_vehicles_on_maker_id"
   end
 

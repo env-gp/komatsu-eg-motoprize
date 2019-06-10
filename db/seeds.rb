@@ -56,9 +56,9 @@ Maker.create!(
 Vehicle.create!(
   [
     {
-     name: 'CB400SF',
-     maker_id: '1',
-     movie: 'AOqqnkmxMcQ'
+      name: 'CB400SF',
+      maker_id: '1',
+      movie: 'AOqqnkmxMcQ'
     },
     {
       name: 'CB1300SF',
@@ -83,10 +83,12 @@ Vehicle.create!(
     {
       name: 'スーパーカブ110',
       maker_id: '1',
+      movie: '',
     },
     {
       name: 'CBR1000RR',
       maker_id: '1',
+      movie: '',
     },
     {
       name: 'CB1100',
@@ -101,22 +103,27 @@ Vehicle.create!(
     {
       name: 'GSX1300Rハヤブサ',
       maker_id: '2',
+      movie: '',
     },
     {
       name: 'SR400',
       maker_id: '3',
+      movie: '',
     },
     {
       name: 'MT-10',
       maker_id: '3',
+      movie: '',
     },
     {
       name: 'Ninja H2',
       maker_id: '4',
+      movie: '',
     },
     {
       name: 'Z900RS',
       maker_id: '4',
+      movie: '',
     }
   ]
 )
