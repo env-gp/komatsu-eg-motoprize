@@ -24,3 +24,8 @@ Webサーバーを起動する前に、db/seeds.rbで初期データを設定し
 
 # 本番URL
 https://motoprize-prd.herokuapp.com
+
+レビュー投稿及び「参考になった」機能を使用するにはログインが必要です。  
+【テスト用ログインユーザー】  
+メールアドレス：taro@ex.com  
+パスワード：pass  

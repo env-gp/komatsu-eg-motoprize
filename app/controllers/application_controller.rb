@@ -6,7 +6,11 @@ class ApplicationController < ActionController::Base
   private
 
   def correct_user(user_id)
-    @current_user.id == user_id
+    if current_user.blank?
+      false
+    else
+      @current_user.id == user_id
+    end
   end
 
   def current_user

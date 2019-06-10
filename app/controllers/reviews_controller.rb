@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
 
+  skip_before_action :login_required, only: [:show, :index]
+
   include Admin_common
 
   before_action :set_review, only: [:show, :edit, :update, :destroy]
