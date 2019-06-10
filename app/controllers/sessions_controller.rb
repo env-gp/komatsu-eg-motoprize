@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(session_params[:password])
       sign_in(user)
-      session[:user_id] = user.id
       redirect_to root_path, notice: 'ログインしました。'
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"

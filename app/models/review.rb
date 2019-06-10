@@ -54,7 +54,7 @@ class Review < ApplicationRecord
     likes.find_by(user_id: user_id)
   end
 
-  def use
+  def get_uses
     use_array = []
     separator = "・"
     uses = {

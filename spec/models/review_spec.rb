@@ -93,7 +93,7 @@ RSpec.describe Review, type: :model do
   context "#use" do
     it "useが適切な文字列を返すこと" do
       review = FactoryBot.build(:review)
-      expect(review.use).to include('ツーリング・レース・通勤・その他')
+      expect(review.get_uses).to eq('ツーリング・レース・通勤・その他')
     end
   end
 end

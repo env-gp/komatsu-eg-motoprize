@@ -34,7 +34,7 @@ class ReviewsController < ApplicationController
     end
 
     if @review.update(review_params)
-      redirect_to reviews_path(user_id: @current_user.id), notice: "レビュー「#{@review.title}」を更新しました。"
+      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を更新しました。"
     else
       @path = Rails.application.routes.recognize_path(request.referer)
       render :edit
@@ -46,7 +46,7 @@ class ReviewsController < ApplicationController
     @review = @current_user.reviews.new(review_params.merge(vehicle_id: @vehicle.id))
 
     if @review.save
-      redirect_to reviews_path(user_id: @current_user.id), notice: "レビュー「#{@review.title}」を登録しました。"
+      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を登録しました。"
     else
       @path = Rails.application.routes.recognize_path(request.referer)
       render :new
@@ -57,7 +57,7 @@ class ReviewsController < ApplicationController
     @review.image.purge if @review.image.attached?
     @review.destroy
     unless request.xhr?
-      redirect_to reviews_path(user_id: @current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
+      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
     end
   end
 
@@ -68,6 +68,10 @@ class ReviewsController < ApplicationController
 
   def index
     search_by_ransack
+  end
+
+  def index_reviews_path(user_id)
+    "/reviews/#{user_id}/index"
   end
 
   private
@@ -90,4 +94,5 @@ class ReviewsController < ApplicationController
     @q = @user.reviews.includes(:vehicle).ransack(params[:q])
     @reviews = @q.result(distinct: true).page(params[:page]).per(Review::REVIEWLIST_PAGINATION_MAX)
   end
+
 end

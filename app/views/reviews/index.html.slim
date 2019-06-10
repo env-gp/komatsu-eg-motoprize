@@ -25,12 +25,12 @@ table.table.table-hover.table-sm
   tbody
     - @reviews.each do |review|
       tr
-        td= link_to review.title.truncate(16), review
+        td= link_to review.title.truncate(16), review, id: 'link-title'
         td= link_to review.vehicle.name, review.vehicle
         td= review.likes_count
         td= review.created_at.to_s(:db)
         td
           - if correct_user(review.user_id)
             = link_to '編集', edit_review_path(review), class: 'btn btn-link mr-3'
-            = link_to '削除', review, method: :delete, remote: true, data: { confirm: "タスク 「#{review.title}」を削除します。よろしいですか？"}, class: 'btn btn-link delete'
+            = link_to '削除', review, method: :delete, remote: true, data: { confirm: "レビュー 「#{review.title}」を削除します。よろしいですか？"}, class: 'btn btn-link delete'
     
