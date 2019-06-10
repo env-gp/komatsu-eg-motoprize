@@ -9,10 +9,13 @@
     .makers-check
       - @makers.each do |maker|
         .form-check-inline
-          - if maker.id == 1
-            = f.radio_button :maker_id, maker.id, :checked => true, class: 'form-check-input', id: maker.name
+          - if vehicle.name.nil?
+            - if maker.id == 1
+              = f.radio_button :maker_id, maker.id, :checked => true, class: 'form-check-input', id: maker.name
+            - else
+              = f.radio_button :maker_id, maker.id, :checked => false, class: 'form-check-input', id: maker.name
           - else
-            = f.radio_button :maker_id, maker.id, :checked => false, class: 'form-check-input', id: maker.name
+            = f.radio_button :maker_id, maker.id, class: 'form-check-input', id: maker.name
           = f.label :maker_name, maker.name, for: maker.name, class: 'form-check-label'
   .form-group
     = f.label :name

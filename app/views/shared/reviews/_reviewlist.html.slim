@@ -28,3 +28,10 @@
 
 - else
   p レビュー投稿はありません。
+
+- if current_user.blank? && Rails.env.production?
+  .home-notice
+    p レビュー投稿及び「参考になった」機能を使用するにはログインが必要です。
+    p 【テスト用ログインユーザー】
+    p メールアドレス：taro@ex.com
+    p パスワード：pass
