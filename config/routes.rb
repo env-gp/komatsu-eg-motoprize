@@ -10,10 +10,10 @@ Rails.application.routes.draw do
   end
 
   resources :users
-  resources :reviews, expect: [:index]
+  resources :reviews
   resources :vehicles
 
-  get '/reviews/:user_id/index', to: 'reviews#index'
+  get '/drafts/index', to: 'reviews#drafts_index'
 
   get '/likes/create'
   get '/likes/destroy'

@@ -11,14 +11,14 @@ RSpec.describe Review, type: :model do
 
     it "titleがなければ無効な状態であること" do
       review = FactoryBot.build(:review, :without_title)
-      review.valid?
+      review.valid?(:publish)
     
       expect(review.errors[:title]).to include("を入力してください")
     end
 
     it "bodyがなければ無効な状態であること" do
       review = FactoryBot.build(:review, :without_body)
-      review.valid?
+      review.valid?(:publish)
 
       expect(review.errors[:body]).to include("を入力してください")
     end

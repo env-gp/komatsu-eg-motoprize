@@ -11,6 +11,7 @@ FactoryBot.define do
     association :vehicle
     association :user
     likes_count { 0 }
+    status { 1 }
   end
 
   factory :review_2, parent: :review do
@@ -25,6 +26,7 @@ FactoryBot.define do
     association :vehicle
     association :user
     likes_count { 0 }
+    status { 1 }
   end
 
   factory :review_3, parent: :review do
@@ -39,6 +41,7 @@ FactoryBot.define do
     association :vehicle, factory: :vehicle_second
     association :user
     likes_count { 0 }
+    status { 1 }
   end
 
   trait :without_title do

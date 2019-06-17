@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  include Admin_common
+  include AdminCommon
 
   before_action :require_admin, only: [:index, :destroy]
   before_action :correct_user_check, only: [:edit, :update]

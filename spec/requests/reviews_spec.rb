@@ -107,7 +107,7 @@ describe ReviewsController, type: :request do
 
       it 'リダイレクトすること' do
         put review_path review1, params: { review: FactoryBot.attributes_for(:review, title: '存在感がすごい') }
-        expect(response).to redirect_to(index_reviews_path(user.id))
+        expect(response).to redirect_to(reviews_path(user_id: user.id))
       end
     end
 
@@ -141,11 +141,7 @@ describe ReviewsController, type: :request do
 
     it 'レビュー一覧にリダイレクトすること' do
       delete review_path review1
-      expect(response).to redirect_to(index_reviews_path(user.id))
+      expect(response).to redirect_to(reviews_path(user_id: user.id))
     end
   end
-end
-
-def index_reviews_path(user_id)
-  "/reviews/#{user_id}/index"
 end

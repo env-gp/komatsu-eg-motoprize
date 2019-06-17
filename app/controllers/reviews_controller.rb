@@ -1,11 +1,11 @@
 class ReviewsController < ApplicationController
 
-  skip_before_action :login_required, only: [:show, :index]
+  skip_before_action :login_required, only: [:show, :index, :drafts_index]
 
-  include Admin_common
+  include AdminCommon
 
   before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user_check, only: [:edit, :update, :destroy]
+  before_action :correct_user_check, only: [:drafts_index, :edit, :update, :destroy]
   
   def new
     @vehicle = Vehicle.find_by(id: params[:vehicle_id])
@@ -33,8 +33,10 @@ class ReviewsController < ApplicationController
       @review.image.attach(params[:review][:image])
     end
 
-    if @review.update(review_params)
-      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を更新しました。"
+    @review.assign_attributes(review_params)
+
+    if execute_save
+      screen_migration('更新')
     else
       @path = Rails.application.routes.recognize_path(request.referer)
       render :edit
@@ -45,8 +47,8 @@ class ReviewsController < ApplicationController
     @vehicle = Vehicle.find_by(id: params[:vehicle_id])
     @review = @current_user.reviews.new(review_params.merge(vehicle_id: @vehicle.id))
 
-    if @review.save
-      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を登録しました。"
+    if execute_save
+      screen_migration('登録')
     else
       @path = Rails.application.routes.recognize_path(request.referer)
       render :new
@@ -57,7 +59,11 @@ class ReviewsController < ApplicationController
     @review.image.purge if @review.image.attached?
     @review.destroy
     unless request.xhr?
-      redirect_to index_reviews_path(current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
+      if @review.status == Review::STATUS_PUBLISH
+        redirect_to reviews_path(user_id: current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
+      else
+        redirect_to drafts_index_path(user_id: current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
+      end
     end
   end
 
@@ -66,12 +72,12 @@ class ReviewsController < ApplicationController
     @path = Rails.application.routes.recognize_path(request.referer)
   end
 
-  def index
-    search_by_ransack
+  def drafts_index
+    search_by_ransack(Review::STATUS_DRAFT)
   end
 
-  def index_reviews_path(user_id)
-    "/reviews/#{user_id}/index"
+  def index
+    search_by_ransack(Review::STATUS_PUBLISH)
   end
 
   private
@@ -85,14 +91,42 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:title, :body, :image, :touring, :race, :shopping, :commute, :work, :etcetera)
   end
 
-  def correct_user_check
-    redirect_to root_path, notice: "権限がありません" unless @current_user.id == @review.user.id
-  end
-
-  def search_by_ransack
+  def search_by_ransack(status)
     @user = User.find_by(id: params[:user_id])
-    @q = @user.reviews.includes(:vehicle).ransack(params[:q])
+    @q = @user.reviews.includes(:vehicle).where(status: status).ransack(params[:q])
     @reviews = @q.result(distinct: true).page(params[:page]).per(Review::REVIEWLIST_PAGINATION_MAX)
   end
 
+  def execute_save
+    if status_judgment
+      @review.status = Review::STATUS_DRAFT
+      @review.save
+    else
+      @review.status = Review::STATUS_PUBLISH
+      @review.save(context: :publish)
+    end
+  end
+
+  def status_judgment
+    params[:commit] == '下書き保存する'
+  end
+
+  def correct_user_check
+    user_id = params[:user_id].to_i
+    unless @review.nil?
+      user_id = @review.user.id
+    end
+
+    redirect_to root_path, notice: "権限がありません" unless @current_user.id == user_id
+  end
+
+  def screen_migration(mode)
+    flash[:notice] = "レビュー「#{@review.title}」を#{mode}しました。"
+
+    if status_judgment
+      redirect_to drafts_index_path(user_id: current_user.id)
+    else
+      redirect_to reviews_path(user_id: current_user.id)
+    end
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_234959) do
+ActiveRecord::Schema.define(version: 2019_06_17_051354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,9 @@ ActiveRecord::Schema.define(version: 2019_06_09_234959) do
     t.boolean "commute", default: false, null: false
     t.boolean "work", default: false, null: false
     t.boolean "etcetera", default: false, null: false
+    t.integer "status", null: false
     t.index ["created_at", "id"], name: "index_reviews_on_created_at_and_id"
+    t.index ["status"], name: "index_reviews_on_status"
     t.index ["user_id"], name: "index_reviews_on_user_id"
     t.index ["vehicle_id"], name: "index_reviews_on_vehicle_id"
   end

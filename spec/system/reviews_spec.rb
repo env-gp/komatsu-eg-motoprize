@@ -17,7 +17,7 @@ describe "レビュー管理機能", type: :system do
         review_post
       end
 
-      shared_examples '課題, コメント, 車両名、登録日時を検証' do
+      shared_examples '課題、コメント、車両名、登録日時を検証' do
         it { expect(page).to have_content "ツーリングにもってこい" }
         it { expect(page).to have_content "【Rebel500】" }
         it { expect(page).to have_content "スタイルがかっこいい 存在感がある" }
@@ -26,14 +26,14 @@ describe "レビュー管理機能", type: :system do
 
       context "ユーザー１がレビューを新規投稿後、レビュー一覧、レビュー詳細、ホーム、車両詳細に表示されること" do
 
-        it 'レビューを新規登録後、レビュー一覧に表示に表示されること' do
+        it 'レビュー一覧に表示に表示されること' do
           expect(page).to have_content "レビュー「ツーリングにもってこい」を登録しました。"
           expect(page).to have_content "ツーリングにもってこい"
           expect(page).to have_content "Rebel500"
           expect(page).to have_content Date.today.to_s(:db)
         end
 
-        it 'レビューを新規登録後、レビュー詳細に表示に表示されること' do
+        it 'レビュー詳細に表示に表示されること' do
           click_link "ツーリングにもってこい"
           expect(page).to have_content "Rebel500"
           expect(page).to have_content "ツーリング・買い物・その他"
@@ -43,20 +43,43 @@ describe "レビュー管理機能", type: :system do
         end
 
         # ホームに表示されること。
-        context 'レビューを新規登録後、ホームに表示に表示されること' do
+        context 'ホームに表示に表示されること' do
           before do
             click_link "ホーム"
           end
-          it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+          it_behaves_like '課題、コメント、車両名、登録日時を検証'
         end
 
-        context 'レビューを新規登録後、車両詳細に表示に表示されること' do
+        context '車両詳細に表示されること' do
           before do
             click_link "車両一覧"
             click_link "Rebel500"
           end
-          it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+          it_behaves_like '課題、コメント、車両名、登録日時を検証'
         end
+      end
+    end
+
+    context 'ユーザー1でログインしているとき' do
+      let(:login_user) { user1 }
+
+      before do
+        draft_review_post
+      end
+
+      it '下書きレビューを新規登録後、下書き一覧に表示されること' do
+        expect(page).to have_content "レビュー「ツーリングにもってこい」を登録しました。"
+        expect(page).to have_content "ツーリングにもってこい"
+        expect(page).to have_content "Rebel500"
+        expect(page).to have_content Date.today.to_s(:db)
+      end
+
+      it '下書きレビューを新規登録後、レビュー一覧に表示されないこと' do
+        click_link "マイページ"
+        click_link "投稿一覧"
+        expect(page).to have_no_content "ツーリングにもってこい"
+        expect(page).to have_no_content "Rebel500"
+        expect(page).to have_no_content Date.today.to_s(:db)
       end
     end
 
@@ -99,7 +122,7 @@ describe "レビュー管理機能", type: :system do
           click_button "レビューを投稿する"
         end
 
-        shared_examples '課題, コメント, 車両名、登録日時を検証' do
+        shared_examples '課題、コメント、車両名、登録日時を検証' do
           it { expect(page).to have_content "日本の道に最も適したバイク" }
           it { expect(page).to have_content "【Rebel500】" }
           it { expect(page).to have_content "オールマイティで存在感がある" }
@@ -129,7 +152,7 @@ describe "レビュー管理機能", type: :system do
           before do
             click_link "ホーム"
           end
-          it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+          it_behaves_like '課題、コメント、車両名、登録日時を検証'
         end
 
         context '車両詳細にされること' do
@@ -137,7 +160,7 @@ describe "レビュー管理機能", type: :system do
             click_link "車両一覧"
             click_link "Rebel500"
           end
-          it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+          it_behaves_like '課題、コメント、車両名、登録日時を検証'
         end
       end
     end
@@ -154,7 +177,7 @@ describe "レビュー管理機能", type: :system do
         page.accept_confirm
       end
 
-      shared_examples '課題, コメント, 車両名、登録日時を検証' do
+      shared_examples '課題、コメント、車両名、登録日時を検証' do
         it { expect(page).to have_no_content "ツーリングにもってこい" }
         it { expect(page).to have_no_content "スタイルがかっこいい 存在感がある" }
         it { expect(page).to have_no_content "【Rebel500】" }
@@ -163,8 +186,8 @@ describe "レビュー管理機能", type: :system do
 
       it "レビュー一覧に表示されないこと" do
         expect(page).to have_content "レビュー「ツーリングにもってこい」を削除しました。"
-        visit current_path
-        expect(page).to have_no_content "ツーリングにもってこい"
+        #visit current_path
+        #expect(page).to have_no_content "ツーリングにもってこい"
         expect(page).to have_no_content "Rebel500"
         expect(page).to have_no_content Date.today.to_s(:db)
       end
@@ -173,7 +196,7 @@ describe "レビュー管理機能", type: :system do
         before do
           click_link "ホーム"
         end
-        it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+        it_behaves_like '課題、コメント、車両名、登録日時を検証'
       end
 
       context '車両詳細に表示されないこと' do
@@ -181,7 +204,7 @@ describe "レビュー管理機能", type: :system do
           click_link "車両一覧"
           click_link "Rebel500"
         end
-        it_behaves_like '課題, コメント, 車両名、登録日時を検証'
+        it_behaves_like '課題、コメント、車両名、登録日時を検証'
       end
     end
   end

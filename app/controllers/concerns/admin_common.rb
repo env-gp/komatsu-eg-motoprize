@@ -1,4 +1,6 @@
-module Admin_common
+require 'active_support'
+
+module AdminCommon
   extend ActiveSupport::Concern
 
   def require_admin
