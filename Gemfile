@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'activerecord-like'
 
 gem 'toastr-rails'
+gem 'active_decorator'
 
 gem 'jquery-turbolinks'
 gem "jquery-rails"
@@ -68,6 +69,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'active_decorator-rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

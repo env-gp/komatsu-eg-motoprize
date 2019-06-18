@@ -5,8 +5,10 @@ h1 レビューの詳細
     = link_to '戻る', root_path, class: 'nav-link'
   - elsif @path[:controller] == "vehicles"
     = link_to '戻る', vehicle_path(@review.vehicle.id), class: 'nav-link'
+  - elsif @path[:controller] == "reviews" && @path[:action] == "index"
+    = link_to '一覧', reviews_path(user_id: @review.user.id), class: 'nav-link'
   - else
-    = link_to '一覧', "/reviews/#{@review.user.id}/index", class: 'nav-link'
+    = link_to '一覧', drafts_index_path(user_id: @review.user.id), class: 'nav-link'
 
 .likes_button
   #likes_button

@@ -27,6 +27,6 @@
     = f.label :image
     = f.file_field :image, class: 'form-control'
     = hidden_field_tag :vehicle_id, vehicle.id
-  = f.submit 'レビューを投稿する', class: 'btn btn-primary publish'
-  = f.submit '下書き保存する', class: 'btn btn-primary draft'
+  = f.submit review.get_execut_name(Review::STATUS_PUBLISH), class: 'btn btn-primary publish'
+  = f.submit review.get_execut_name(Review::STATUS_DRAFT), class: 'btn btn-primary draft'
   p.help-block ※下書きでは必須項目はありません。また、すでに投稿されているレビューも下書きに戻ります。

@@ -67,28 +67,6 @@ class Review < ApplicationRecord
     likes.find_by(user_id: user_id)
   end
   
-  def get_uses
-    use_array = []
-    separator = "・"
-    uses = {
-      touring: self.touring,
-      race: self.race,
-      shopping: self.shopping,
-      commute: self.commute,
-      work: self.work,
-      etcetera: self.etcetera,
-    }
-
-    uses.each do |key, value|
-      if value.present?
-        use_array << Review.human_attribute_name(key)
-      end
-    end
-
-    use_array.join(separator).to_s
-  end
-  
-
   def thumbnail
     return self.image.variant(resize: '800x800').processed
   end

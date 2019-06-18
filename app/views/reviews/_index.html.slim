@@ -1,5 +1,5 @@
 .search_form
-  = search_form_for q do |f|
+  = search_form_for q, url: request.fullpath do |f|
     .form-group.row
       = f.label :title_or_vehicle_name_cont, "題名、車種", class: 'col-sm-2 col-form-label'
       .col-sm-10
