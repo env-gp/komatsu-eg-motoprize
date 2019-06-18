@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :vehicles
 
   get '/drafts/index', to: 'reviews#drafts_index'
+  get '/gallerys/index', to: 'reviews#gallerys_index'
 
   get '/likes/create'
   get '/likes/destroy'

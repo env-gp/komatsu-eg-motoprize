@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery.turbolinks
+//= require magnific-popup
 //= require rails-ujs
 //= require bootstrap
 //= require activestorage

@@ -2,7 +2,8 @@ class Review < ApplicationRecord
 
   TITLE_MAX_LENGTH = 30
   BODY_MAX_LENGTH = 2000
-  HOME_PAGINATION_MAX = 3
+  HOME_PAGINATION_MAX = 2
+  GALLERY_PAGINATION_MAX = 12
   REVIEWLIST_PAGINATION_MAX = 5
   DUPLICATE_REVIEW_ERR_MESSAGE = "すでに同一車種でレビューが投稿されています。投稿日:"
 
@@ -33,15 +34,20 @@ class Review < ApplicationRecord
   validate :validate_body_not_including_comma
   validate :validate_duplicate_review, on: :create
   
-  scope :order_create_desc , -> (page) { where(status: 1).order("created_at DESC, id DESC").page(page).per(HOME_PAGINATION_MAX) }
+  scope :order_create_desc , -> (page, pagination_max) { where(status: STATUS_PUBLISH).order("created_at DESC, id DESC").page(page).per(pagination_max) }
   scope :review_includes , -> { Review.includes(:user, :vehicle) }
   
-  def self.search(page, search: "", vehicle_id: nil)
+  def self.search(page, search: "", vehicle_id: nil, mode: nil)
+    if mode == "gallerys"
+      pagination_max = GALLERY_PAGINATION_MAX
+    else
+      pagination_max = HOME_PAGINATION_MAX
+    end
     if search.length == 0
       if vehicle_id.nil?
-        review_includes.order_create_desc(page)
+        review_includes.order_create_desc(page, pagination_max)
       else
-        review_includes.where(vehicle_id: vehicle_id).order_create_desc(page)
+        review_includes.where(vehicle_id: vehicle_id).order_create_desc(page, pagination_max)
       end
     else
       # 検索文字列を空白で区切ってtitle, bodyそれぞれで検索する
@@ -51,7 +57,7 @@ class Review < ApplicationRecord
       # gem 'activerecord-like'の機能を使用
       review_includes.where.like(title: search_words)
       .or(review_includes.where.like(body: search_words))
-      .order_create_desc(page)
+      .order_create_desc(page, pagination_max)
     end
   end
   
@@ -67,10 +73,6 @@ class Review < ApplicationRecord
     likes.find_by(user_id: user_id)
   end
   
-  def thumbnail
-    return self.image.variant(resize: '800x800').processed
-  end
-
   private
 
   def validate_title_not_including_comma

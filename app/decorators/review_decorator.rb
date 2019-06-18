@@ -31,4 +31,12 @@ module ReviewDecorator
   def get_status_name
     STATUS_NAME[self.status]
   end
+
+  def thumbnail
+    return self.image.variant(resize: '800x800').processed
+  end
+
+  def gallery_image_thumbnail
+    return self.image.variant(resize: '300x300').processed
+  end
 end

@@ -1,0 +1,23 @@
+h1 ギャラリー
+- if @reviews.present?
+  #wrappr
+    .gallery
+      - @reviews.each do |review|
+          - if review.image.attached?
+            .gallery-image
+              = link_to review.image, class: 'popup-img' do
+                = image_tag review.image, alt: ""
+
+  .paginate-reviews
+    .paginate-reviews-info
+      = page_entries_info @reviews
+    = paginate @reviews
+- else
+  p レビュー投稿はありません。
+
+- if current_user.blank? && Rails.env.production?
+  .home-notice
+    p レビュー投稿及び「参考になった」機能を使用するにはログインが必要です。
+    p 【テスト用ログインユーザー】
+    p メールアドレス：taro@ex.com
+    p パスワード：pass

@@ -32,6 +32,7 @@ gem 'active_decorator'
 
 gem 'jquery-turbolinks'
 gem "jquery-rails"
+gem 'magnific-popup-rails', '~> 1.1.0'
 
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.8'

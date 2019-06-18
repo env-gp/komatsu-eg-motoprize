@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
 
-  skip_before_action :login_required, only: [:show, :index, :drafts_index]
+  skip_before_action :login_required, only: [:show, :index, :drafts_index, :gallerys_index]
 
   include AdminCommon
 
@@ -78,6 +78,10 @@ class ReviewsController < ApplicationController
 
   def index
     search_by_ransack(Review::STATUS_PUBLISH)
+  end
+
+  def gallerys_index
+    @reviews = Review.search(params[:page], mode: 'gallerys')
   end
 
   private

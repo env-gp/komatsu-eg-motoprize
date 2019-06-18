@@ -2,6 +2,7 @@
   = link_to 'Motoprize', root_path, class: 'navbar-brand'
   .ul.navbar-nav.mr-auto
     li.nav-item= link_to 'ホーム', root_path, class: 'nav-link'
+    li.nav-item= link_to 'ギャラリー', gallerys_index_path, class: 'nav-link'
     li.nav-item= link_to '車両一覧', vehicles_path, class: 'nav-link'
     - if current_user.blank? == false && current_user
       li.nav-item= link_to 'マイページ', user_path(current_user), class: 'nav-link'
