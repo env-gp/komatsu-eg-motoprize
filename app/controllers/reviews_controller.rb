@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
   def new
     @vehicle = Vehicle.find_by(id: params[:vehicle_id])
     @maker = Maker.find(@vehicle.maker_id)
-    @path = Rails.application.routes.recognize_path(request.referer)
+    before_controller
 
     error_message = Review.duplicate_review(@current_user.id, @vehicle.id)
     if error_message
@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
 
   def edit
     # 遷移元のcontroller,actionを取得
-    @path = Rails.application.routes.recognize_path(request.referer)
+    before_controller
   end
 
   def update
@@ -38,7 +38,7 @@ class ReviewsController < ApplicationController
     if execute_save
       screen_migration('更新')
     else
-      @path = Rails.application.routes.recognize_path(request.referer)
+      before_controller
       render :edit
     end
   end
@@ -50,7 +50,7 @@ class ReviewsController < ApplicationController
     if execute_save
       screen_migration('登録')
     else
-      @path = Rails.application.routes.recognize_path(request.referer)
+      before_controller
       render :new
     end
   end
@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
 
   def show
     # 遷移元のcontroller,actionを取得
-    @path = Rails.application.routes.recognize_path(request.referer)
+    before_controller
   end
 
   def drafts_index
@@ -108,7 +108,7 @@ class ReviewsController < ApplicationController
   end
 
   def status_judgment
-    params[:commit] == '下書き保存する'
+    params[:commit] == ReviewDecorator::STATUS[Review::STATUS_DRAFT]
   end
 
   def correct_user_check
@@ -128,5 +128,9 @@ class ReviewsController < ApplicationController
     else
       redirect_to reviews_path(user_id: current_user.id)
     end
+  end
+
+  def before_controller
+    @path = Rails.application.routes.recognize_path(request.referer)
   end
 end

@@ -28,6 +28,7 @@ ja:
         created_at: 登録日時
         updated_at: 更新日時
         use: 使用目的
+        status: 状態
       user:
         name: 名前
         email: メールアドレス

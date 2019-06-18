@@ -1,6 +1,7 @@
 module ReviewDecorator
 
   STATUS = {Review::STATUS_PUBLISH => 'レビューを投稿する', Review::STATUS_DRAFT => '下書き保存する' }
+  STATUS_NAME = {Review::STATUS_PUBLISH => '公開済み', Review::STATUS_DRAFT => '下書き' }
 
   def get_uses
     use_array = []
@@ -25,5 +26,9 @@ module ReviewDecorator
 
   def get_execut_name(status)
     STATUS[status]
+  end
+
+  def get_status_name
+    STATUS_NAME[self.status]
   end
 end

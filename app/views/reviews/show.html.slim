@@ -32,9 +32,12 @@ h1 レビューの詳細
       tr
         th= Review.human_attribute_name(:body)
         td= simple_format(h(@review.body))
-      t
+      tr
         th= Review.human_attribute_name(:image)
         td= image_tag @review.thumbnail if @review.image.attached?
+      tr
+        th= Review.human_attribute_name(:status)
+        td= @review.get_status_name
       tr
         th= Review.human_attribute_name(:created_at)
         td= @review.created_at.to_s(:db)
