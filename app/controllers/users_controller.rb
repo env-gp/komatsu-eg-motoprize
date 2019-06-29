@@ -42,22 +42,26 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if params[:avatar]
-      @user.avatar.attach(params[:user][:avatar])
-    end
 
-    if @user.update(user_params)
-      redirect_to user_path(current_user), notice: "ユーザ「#{@user.name}」を更新しました。"
-    else
-      render :new
+    ApplicationRecord.transaction do
+      if params[:avatar]
+        @user.avatar.attach(params[:user][:avatar])
+      end
+      if @user.update!(user_params)
+        redirect_to user_path(current_user), notice: "ユーザ「#{@user.name}」を更新しました。"
+      else
+        render :new
+      end
     end
   end
 
   def destroy
     @user = User.find(params[:id])
 
-    @user.avatar.purge if @user.avatar.attached?
-    @user.destroy
+    ApplicationRecord.transaction do
+      @user.avatar.purge if @user.avatar.attached?
+      @user.destroy!
+    end
     redirect_to users_url, notice: "ユーザ「#{@user.name}」を削除しました。"
   end
 

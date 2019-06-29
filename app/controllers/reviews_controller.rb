@@ -29,17 +29,23 @@ class ReviewsController < ApplicationController
   end
 
   def update
-    if params[:image]
-      @review.image.attach(params[:review][:image])
-    end
-
     @review.assign_attributes(review_params)
 
-    if execute_save
-      screen_migration('更新')
-    else
-      before_controller
-      render :edit
+    ApplicationRecord.transaction do
+      if review_params[:image]
+        @review.image.attach(params[:review][:image])
+      end
+    
+      if params[:image_delete] && @review.image.attached?
+        @review.image.purge
+      end
+
+      if execute_save
+        screen_migration('更新')
+      else
+        before_controller
+        render :edit
+      end
     end
   end
 
@@ -56,8 +62,11 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    @review.image.purge if @review.image.attached?
-    @review.destroy
+    ApplicationRecord.transaction do
+      @review.image.purge if @review.image.attached?
+      @review.destroy!
+    end
+
     unless request.xhr?
       if @review.status == Review::STATUS_PUBLISH
         redirect_to reviews_path(user_id: current_user.id), notice: "レビュー「#{@review.title}」を削除しました。"
@@ -104,7 +113,7 @@ class ReviewsController < ApplicationController
   def execute_save
     if status_judgment
       @review.status = Review::STATUS_DRAFT
-      @review.save
+      @review.save!
     else
       @review.status = Review::STATUS_PUBLISH
       @review.save(context: :publish)

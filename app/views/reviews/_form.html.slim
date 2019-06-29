@@ -23,10 +23,13 @@
     = link_to '評価項目別にコメントを書く','' , id: 'btn-evaluation', class: 'evaluation btn btn-info btn-xs', remote: true
     = f.text_area :body, rows: 9, class: 'form-control', id: 'review_body'
     p.help-block ※#{ Review::BODY_MAX_LENGTH }文字以内
-  .form-group
+  .form-group.image-upload
     = f.label :image
     = f.file_field :image, class: 'form-control'
     = hidden_field_tag :vehicle_id, vehicle.id
+  .form-group.image-delete
+    = check_box_tag :image_delete
+    = label_tag :image_delete, "画像を削除する"
   = f.submit review.get_execut_name(Review::STATUS_PUBLISH), class: 'btn btn-primary publish'
   = f.submit review.get_execut_name(Review::STATUS_DRAFT), class: 'btn btn-primary draft'
   p.help-block ※下書きでは必須項目はありません。また、すでに投稿されているレビューも下書きに戻ります。

@@ -59,4 +59,30 @@ RSpec.describe User, type: :model do
       expect{ user.destroy }.to change{ Review.count }.by(-1).and change{ Like.count }.by(-1)
     end
   end
+
+  context "Active Storage" do
+
+    after do
+      @user.avatar.purge
+    end
+
+    it "アバター画像が登録できること" do
+      @user = FactoryBot.create(:user)
+      @user.avatar.attach(io: File.open(Rails.root.join('spec', 'factories', 'images', 'test.jpg').to_s), filename: 'test.jpg', content_type: 'image/jpg')
+      expect(@user.avatar.attached?).to be true
+    end
+  
+    it "アバター画像が更新できること" do
+      @user = FactoryBot.create(:user)
+      @user.avatar.attach(io: File.open(Rails.root.join('spec', 'factories', 'images', 'test.jpg').to_s), filename: 'test.jpg', content_type: 'image/jpg')
+      expect(@user.avatar.attached?).to be true
+    end
+  
+    it "アバター画像が削除できること" do
+      @user = FactoryBot.create(:user)
+      @user.avatar.attach(io: File.open(Rails.root.join('spec', 'factories', 'images', 'test.jpg').to_s), filename: 'test.jpg', content_type: 'image/jpg')
+      @user.avatar.purge
+      expect(@user.avatar.attached?).to be false
+    end
+  end
 end

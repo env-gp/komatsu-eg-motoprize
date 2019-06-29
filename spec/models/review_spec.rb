@@ -99,3 +99,27 @@ context "関連ＤＢが削除されること" do
     expect{ review.destroy }.to change{ Like.count }.by(-1)
   end
 end
+
+context "Active Storage" do
+
+  after do
+    @review.image.purge
+  end
+
+  it "レビュー画像が登録できること" do
+    @review = FactoryBot.create(:review_4)
+    expect(@review.image.attached?).to be true
+  end
+
+  it "レビュー画像が更新できること" do
+    @review = FactoryBot.create(:review)
+    @review.image.attach(io: File.open(Rails.root.join('spec', 'factories', 'images', 'test.jpg').to_s), filename: 'test.jpg', content_type: 'image/jpg')
+    expect(@review.image.attached?).to be true
+  end
+
+  it "レビュー画像が削除できること" do
+    @review = FactoryBot.create(:review_4)
+    @review.image.purge
+    expect(@review.image.attached?).to be false
+  end
+end
