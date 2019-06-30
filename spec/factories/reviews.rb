@@ -70,6 +70,10 @@ FactoryBot.define do
     body { nil }
   end
 
+  trait :draft do
+    status { 2 }
+  end
+
   trait :title_max_over do
     title { Faker::Base.regexify("[aあ]{#{ (Review::TITLE_MAX_LENGTH + 1) }}") }
   end

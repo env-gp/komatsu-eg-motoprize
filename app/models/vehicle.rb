@@ -1,11 +1,12 @@
 class Vehicle < ApplicationRecord
+
+  NO_IMAGE_PATH = "vehicles/no-image.png"
+
   belongs_to :maker
   has_many :reviews, dependent: :restrict_with_error
   has_many :users, through: :reviews
 
   validates :name, presence: true
-
-  NO_IMAGE_PATH = "vehicles/no-image.png"
 
   scope :name_order_asc , -> { order(name: "ASC") }
 

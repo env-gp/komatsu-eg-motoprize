@@ -52,22 +52,18 @@ describe "ホーム機能", type: :system do
         expect(page).to_not have_content "CB400SF"
         expect(page).to_not have_content "取り回しがよく足つき性が良好"
       end
-    end
-
-    context 'ユーザー1でログインしているとき' do
-      let(:login_user) { user1 }
 
       it "存在しないレビュータイトルで検索した場合、定型メッセージが表示されること" do
         click_link "ホーム"
         fill_in 'search', with: '足つき性がよく女性でも扱いやすい'
         click_button "検索"
-
+        
         expect(page).to have_content "レビュー投稿はありません。"
         expect(page).to_not have_content "#{user1.name.truncate(20)}・#{I18n.l(review1.created_at, format: :short)}"
         expect(page).to_not have_content "ツーリングにもってこい"
         expect(page).to_not have_content vehicle1.name
         expect(page).to_not have_content "スタイルがかっこいい 存在感がある"
-
+        
         expect(page).to_not have_content "#{user2.name.truncate(20)}・#{I18n.l(review2.created_at, format: :short)}"
         expect(page).to_not have_content "バランスがかっこいい"
         expect(page).to_not have_content vehicle2.name

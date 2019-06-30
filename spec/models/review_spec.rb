@@ -24,6 +24,28 @@ RSpec.describe Review, type: :model do
     end
   end
 
+  context "下書きの場合、必須チェックが行われないこと" do
+    it "題名とレビューコメントが無効な状態で登録できること" do
+      review = FactoryBot.build(:review, :draft)
+      review.valid?
+      expect(review).to be_valid
+    end
+
+    it "titleがなくても有効な状態であること" do
+      review = FactoryBot.build(:review, :without_title, :without_body, :draft)
+      review.valid?
+    
+      expect(review.errors[:title]).to_not include("を入力してください")
+    end
+
+    it "bodyがなくても有効な状態であること" do
+      review = FactoryBot.build(:review, :draft)
+      review.valid?
+
+      expect(review.errors[:body]).to_not include("を入力してください")
+    end
+  end
+
   context "入力値チェック" do
     it "titleにカンマを含む場合、無効な状態であること" do
       review = FactoryBot.build(:review, :title_include_comma)
