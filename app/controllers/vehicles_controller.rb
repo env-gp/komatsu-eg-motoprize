@@ -59,7 +59,6 @@ class VehiclesController < ApplicationController
         FileUtils.rm("app/assets/images/vehicles/#{image_name}")
       rescue => e
         puts "画像ファイルの削除に失敗しました : " + e.message
-        raise
       end
       redirect_to vehicles_url, notice: "「#{@vehicle.name}」を削除しました。"
     else

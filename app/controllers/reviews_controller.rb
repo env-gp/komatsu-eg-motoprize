@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
 
-  skip_before_action :login_required, only: [:show, :index, :drafts_index, :gallerys_index]
-
   include AdminCommon
+
+  skip_before_action :login_required, only: [:show, :index, :drafts_index, :gallerys_index]
 
   before_action :set_review, only: [:show, :edit, :update, :destroy]
   before_action :correct_user_check, only: [:drafts_index, :edit, :update, :destroy]
