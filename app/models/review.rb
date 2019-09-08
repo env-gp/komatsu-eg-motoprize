@@ -22,7 +22,6 @@ class Review < ApplicationRecord
   has_one_attached :image
 
   has_many :likes, dependent: :destroy
-  has_many :vehicles, through: :reviews
   belongs_to :user
   belongs_to :vehicle
   
