@@ -70,7 +70,7 @@ describe ReviewsController, type: :request do
       }.to change(user.reviews, :count).by(1)
     end
 
-    it "無効な場合、レビューが登録できること" do
+    it "無効な場合、レビューが登録できないこと" do
       review_attributes = FactoryBot.attributes_for(:review, :without_body)
       expect {
         post reviews_path, params: { vehicle_id: vehicle.id, review: review_attributes}, headers: headers
@@ -111,16 +111,17 @@ describe ReviewsController, type: :request do
       end
     end
 
-    context 'パラメータが不正な場合' do
-      it 'リクエストが成功すること' do
-        put review_path review1, params: { review: FactoryBot.attributes_for(:review, :without_title) }
-        expect(response.status).to eq 200
+    context '下書きでパラメータが不正な場合' do
+      it 'タイトルが空の場合、リクエストが成功すること' do
+        put review_path review1, params: { commit: ReviewDecorator::STATUS[Review::STATUS_DRAFT],
+                                            review: FactoryBot.attributes_for(:review, :without_title) }
+        expect(response.status).to eq 302
       end
 
-      it '題名が変更されないこと' do
-        expect do
-          put review_path review1, params: { review: FactoryBot.attributes_for(:review, :without_title) }
-        end.to_not change(Review.find(review1.id), :title)
+      it 'コメントが空の場合、リクエストが成功すること' do
+        put review_path review1, params: { commit: ReviewDecorator::STATUS[Review::STATUS_DRAFT],
+                                            review: FactoryBot.attributes_for(:review, :without_body) }
+        expect(response.status).to eq 302
       end
     end
   end

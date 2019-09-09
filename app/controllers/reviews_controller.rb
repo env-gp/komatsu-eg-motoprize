@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
         @review.image.purge
       end
 
-      if execute_save
+      if update_save!
         screen_migration('更新')
       else
         before_controller
@@ -53,7 +53,7 @@ class ReviewsController < ApplicationController
     @vehicle = Vehicle.find_by(id: params[:vehicle_id])
     @review = @current_user.reviews.new(review_params.merge(vehicle_id: @vehicle.id))
 
-    if execute_save
+    if create_save
       screen_migration('登録')
     else
       before_controller
@@ -110,10 +110,20 @@ class ReviewsController < ApplicationController
     @reviews = @q.result(distinct: true).page(params[:page]).per(Review::REVIEWLIST_PAGINATION_MAX)
   end
 
-  def execute_save
+  def update_save!
     if status_judgment
       @review.status = Review::STATUS_DRAFT
       @review.save!
+    else
+      @review.status = Review::STATUS_PUBLISH
+      @review.save!(context: :publish)
+    end
+  end
+
+  def create_save
+    if status_judgment
+      @review.status = Review::STATUS_DRAFT
+      @review.save
     else
       @review.status = Review::STATUS_PUBLISH
       @review.save(context: :publish)

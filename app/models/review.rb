@@ -42,6 +42,7 @@ class Review < ApplicationRecord
     else
       pagination_max = HOME_PAGINATION_MAX
     end
+
     if search.length == 0
       if vehicle_id.nil?
         review_includes.order_create_desc(page, pagination_max)
