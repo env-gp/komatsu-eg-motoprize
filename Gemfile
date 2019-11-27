@@ -86,3 +86,7 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'ransack'
 gem 'kaminari'
+gem 'capistrano', '~> 3.11', require: false
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'capistrano-rbenv'

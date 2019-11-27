@@ -1,8 +1,21 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+# アプリケーション名
+set :application, "motoprize"
+
+# GtiリポジトリのURL
+set :repo_url, "git@github.com:env-gp/motoprize.git"
+
+# デプロイするブランチ（デフォルトはmasterブランチ）
+set :branch, "master"
+
+# デプロイ先のディレクトリ
+set :deploy_to, "/opt/motoprize"
+
+set :rbenv_ruby_version, '2.5.1p57'
+set :rbenv_path, '/home/envgp/.rbenv' #指定するとこのパスは以下のbundleが、指定しないと$HOME配下のbundleが実行された
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
