@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: motoprize_production
-  username: motoprize
+  username: <%= ENV['MOTOPRIZE_DATABASE_USERNAME'] %>
   password: <%= ENV['MOTOPRIZE_DATABASE_PASSWORD'] %>
