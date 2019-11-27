@@ -63,6 +63,10 @@
 # サーバのホスト名とユーザ名
 server "actxyz.online", user: "envgp", roles: %w{app db web}
 
+set :pg_username, ENV['MOTOPRIZE_DATABASE_USERNAME']
+set :pg_password, ENV['MOTOPRIZE_DATABASE_PASSWORD']
+set :pg_ask_for_password, true
+
 # SSHの設定
 set :ssh_options, {
   keys: %w(~/.ssh/id_rsa),
@@ -70,7 +74,3 @@ set :ssh_options, {
   forward_agent: true,
   auth_methods: %w(publickey)
 }
-
-set :pg_username, ENV['MOTOPRIZE_DATABASE_USERNAME']
-set :pg_password, ENV['MOTOPRIZE_DATABASE_PASSWORD']
-set :pg_ask_for_password, true
