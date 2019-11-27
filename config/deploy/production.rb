@@ -70,3 +70,7 @@ set :ssh_options, {
   forward_agent: true,
   auth_methods: %w(publickey)
 }
+
+set :pg_username, ENV['MOTOPRIZE_DATABASE_USERNAME']
+set :pg_password, ENV['MOTOPRIZE_DATABASE_PASSWORD']
+set :pg_ask_for_password, true

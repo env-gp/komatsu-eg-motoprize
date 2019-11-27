@@ -90,3 +90,6 @@ gem 'capistrano', '~> 3.11', require: false
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-rbenv'
+gem 'capistrano-postgresql'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
