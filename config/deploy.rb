@@ -19,6 +19,8 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} #{fetch(:rbenv_path)}/bin/r
 set :linked_files, %w{config/database.yml}
 set :linked_files, %w{config/master.key}
 
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/sockets'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

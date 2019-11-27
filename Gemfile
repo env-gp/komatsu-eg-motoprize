@@ -61,6 +61,15 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
+  gem 'capistrano-postgresql'
+  gem 'ed25519'
+  gem 'bcrypt_pbkdf'
+  gem 'sshkit-sudo'
 end
 
 group :test do
@@ -86,10 +95,3 @@ gem 'html2slim'
 gem 'bootstrap'
 gem 'ransack'
 gem 'kaminari'
-gem 'capistrano', '~> 3.11', require: false
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rbenv'
-gem 'capistrano-postgresql'
-gem 'ed25519'
-gem 'bcrypt_pbkdf'
