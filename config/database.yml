@@ -83,3 +83,9 @@ production:
   database: motoprize_production
   username: <%= ENV['MOTOPRIZE_DATABASE_USERNAME'] %>
   password: <%= ENV['MOTOPRIZE_DATABASE_PASSWORD'] %>
+
+  staging:
+  <<: *default
+  database: motoprize_production
+  username: <%= ENV['MOTOPRIZE_DATABASE_USERNAME'] %>
+  password: <%= ENV['MOTOPRIZE_DATABASE_PASSWORD'] %>
