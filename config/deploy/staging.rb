@@ -61,7 +61,7 @@
 #   }
 
 # サーバのホスト名とユーザ名
-server "actxyz.online", user: "envgp", roles: %w{app db web}
+server "actwww.work", user: "envgp", roles: %w{app db web}
 
 set :pg_username, ENV['MOTOPRIZE_DATABASE_USERNAME']
 set :pg_password, ENV['MOTOPRIZE_DATABASE_PASSWORD']

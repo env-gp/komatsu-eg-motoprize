@@ -89,3 +89,4 @@ staging:
   database: motoprize_staging
   username: <%= ENV['MOTOPRIZE_DATABASE_USERNAME'] %>
   password: <%= ENV['MOTOPRIZE_DATABASE_PASSWORD'] %>
+  
