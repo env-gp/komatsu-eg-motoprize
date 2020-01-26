@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_051354) do
+ActiveRecord::Schema.define(version: 2020_01_25_121706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 2019_06_17_051354) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "prefectures", force: :cascade do |t|
+    t.string "name", null: false, comment: "県名"
+    t.integer "geonames_id", null: false, comment: "GeoNamesのid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.bigint "vehicle_id"
     t.string "title", null: false
@@ -81,7 +88,9 @@ ActiveRecord::Schema.define(version: 2019_06_17_051354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remember_token"
+    t.bigint "prefecture_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
   end
 
   create_table "vehicles", force: :cascade do |t|
@@ -93,7 +102,20 @@ ActiveRecord::Schema.define(version: 2019_06_17_051354) do
     t.index ["maker_id"], name: "index_vehicles_on_maker_id"
   end
 
+  create_table "weather_forecasts", force: :cascade do |t|
+    t.bigint "prefecture_id", null: false
+    t.integer "weather_id", null: false, comment: "天気の状態id"
+    t.string "main", null: false, comment: "天気の状態"
+    t.string "description", null: false, comment: "天気の詳細"
+    t.datetime "acquired_at", null: false, comment: "APIで取得した日時"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["prefecture_id"], name: "index_weather_forecasts_on_prefecture_id"
+  end
+
   add_foreign_key "likes", "reviews"
   add_foreign_key "likes", "users"
   add_foreign_key "reviews", "vehicles"
+  add_foreign_key "users", "prefectures"
+  add_foreign_key "weather_forecasts", "prefectures"
 end

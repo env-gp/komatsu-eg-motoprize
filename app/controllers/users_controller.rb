@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   before_action :correct_user_check, only: [:edit, :update]
 
   skip_before_action :login_required, only: [:new, :create, :show]
- 
+
   def index
     @users = User.all
   end

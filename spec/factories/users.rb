@@ -3,6 +3,7 @@ FactoryBot.define do
     name  { "山田 太郎" }
     sequence(:email) { |n| "tester#{n}@examle.com" }
     password { "test-password" }
+    association :vehicle
     admin { true }
   end
 

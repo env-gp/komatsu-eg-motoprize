@@ -12,7 +12,7 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
   body
     header
-      = render 'layouts/navigation'
+      = render 'layouts/navigation', weather_condition: @weather_condition
     .wrapper
       .container
         / RSpecにてtoastrのテストは難しいためtest環境は通常のflashを使用する

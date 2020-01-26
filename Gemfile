@@ -51,6 +51,7 @@ group :development, :test do
   gem 'forgery'
   gem 'rubocop', require: false
   gem 'meowcop', require: false
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -70,6 +71,8 @@ group :development do
   gem 'ed25519'
   gem 'bcrypt_pbkdf'
   gem 'sshkit-sudo'
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do

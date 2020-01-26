@@ -6,14 +6,32 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Prefecture.create!(
+  [
+    {
+      name: '東京都',
+      geonames_id: '1850147',
+    },
+    {
+      name: '高知県',
+      geonames_id: '1859133',
+    },
+    {
+      name: '沖縄県',
+      geonames_id: '1854345',
+    },
+  ]
+)
+
 User.create!(
   [
     {
-     name: '太郎（管理者）',
-     email: 'admin@ex.com',
-     admin: true,
-     password: 'pass',
-     password_confirmation: 'pass',
+      name: '太郎（管理者）',
+      email: 'admin@ex.com',
+      admin: true,
+      password: 'pass',
+      password_confirmation: 'pass',
+      prefecture_id: '1',
     },
     {
       name: '山田 太郎',
@@ -21,34 +39,36 @@ User.create!(
       admin: false,
       password: 'pass',
       password_confirmation: 'pass',
-     },
-     {
+      prefecture_id: '2',
+    },
+    {
       name: '鈴木 一郎',
       email: 'ichi@ex.com',
       admin: false,
       password: 'pass',
       password_confirmation: 'pass',
-     },
+      prefecture_id: '3',
+    },
   ]
 )
 
 Maker.create!(
   [
     {
-     name: 'ホンダ',
-     order: '1',
+      name: 'ホンダ',
+      order: '1',
     },
     {
-     name: 'スズキ',
-     order: '2',
+      name: 'スズキ',
+      order: '2',
     },
     {
-     name: 'ヤマハ',
-     order: '3',
+      name: 'ヤマハ',
+      order: '3',
     },
     {
-     name: 'カワサキ',
-     order: '4',
+      name: 'カワサキ',
+      order: '4',
     }
   ]
 )

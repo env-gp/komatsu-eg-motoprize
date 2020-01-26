@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :vehicles, through: :reviews
+  belongs_to :prefecture, optional: true
 
   DEFAULT_AVATER = "default_avater.jpg"
 

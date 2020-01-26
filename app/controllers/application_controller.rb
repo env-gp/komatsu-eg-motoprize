@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :correct_user
   before_action :current_user
   before_action :login_required
+  before_action :current_weather
 
   private
 
@@ -32,5 +33,12 @@ class ApplicationController < ActionController::Base
   def sign_out
     cookies.delete(:user_remember_token)
   end
- 
+  
+  def current_weather
+    if current_user&.prefecture_id.present?
+      forecast = Weather::Forecast.new(current_user.prefecture_id)
+      @weather_condition = forecast.weather_condition
+    end
+  end
+
 end

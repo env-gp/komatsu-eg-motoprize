@@ -1,5 +1,6 @@
 .app-title.navbar.navbar-expand-md.navbar-dark.bg-success.sticky-top
   = link_to 'Motoprize', root_path, class: 'navbar-brand'
+  = image_tag("weathers/#{ weather_condition }.png", class: 'weather-image') if weather_condition
   .ul.navbar-nav.mr-auto
     li.nav-item= link_to 'ホーム', root_path, class: 'nav-link'
     li.nav-item= link_to 'ギャラリー', gallerys_index_path, class: 'nav-link'

@@ -8,6 +8,7 @@
 @import "./makers";
 @import "./vehicles";
 @import "./likes";
+@import "./navigation";
 @import "./footer";
 @import "./home";
 
@@ -23,7 +24,7 @@ h1 {
   margin-left: 400px;
 }
 
-.wrapper{
+.wrapper {
   min-height: 100vh;
   position: relative;
   padding-bottom: 120px;

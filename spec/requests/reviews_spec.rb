@@ -4,7 +4,7 @@ describe ReviewsController, type: :request do
   let!(:user) { FactoryBot.create(:admin_user) }
   let!(:vehicle) { FactoryBot.create(:vehicle) }
   let!(:vehicle2) { FactoryBot.create(:vehicle_second) }
-  let(:headers){ { "HTTP_REFERER" => makers_url } }
+  let(:headers) { { "HTTP_REFERER" => makers_url } }
   let!(:review1) { FactoryBot.create(:review, title: "ツーリングにもってこい", body: "スタイルがかっこいい\n存在感がある", user: user) }
   let!(:review2) { FactoryBot.create(:review_2, title: "バランスがかっこいい", body: "取り回しがよく足つき性が良好", user: user, vehicle: vehicle2) }
 

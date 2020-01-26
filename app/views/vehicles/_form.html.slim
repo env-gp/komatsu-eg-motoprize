@@ -1,7 +1,7 @@
 - if vehicle.errors.present?
   ul#error_explanation
-     - vehicle.errors.full_messages.each do |message|
-       li= message
+    - vehicle.errors.full_messages.each do |message|
+      li= message
 
 = form_with model: @vehicle, local: true, multipart: true do |f|
   .form-group
